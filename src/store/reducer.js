@@ -19,7 +19,7 @@ const initialState ={
 // the CONCAT METHOD ADDS ITEMS TO THE END OF ARRAY1.  IT COMBINES TWO OR MORE ARRAYS..ITS A COMBINER. CONCAT RETURNS A NEW ARRAY + A NEW VALUE ADDED TO THE END OF THAT ARRAY.
 // IF YOU USE PUSH, YOU'RE ATTACHED THE ORIGINAL RESULTS FROM THE ORIGINAL STATE. DONT USE PUSH.
 
-// results: state.results.concat(state.counter) -- this updates the array in the state IMMUTABLY.
+// results: state.results.concat(state.counter) -- this updates the array in the state IMMUTABLY. you work with arrays in states using concat.
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT':
@@ -46,12 +46,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         results: state.results.concat({id: new Date(), value: state.counter})
-
       }
 
+      // we use the filter method returns a new array, it takes a function as an input, the function is executed on each element in the array, and determines if the element fulfills a certain condition to make it into a new array which is returned by filter.
+
+      // IT'S SAYING RETUEN TRUE IF THE ID OF THE CURRENT ELEMENT WE ARE LOOKING ATI NOT EQUAL TO THE ID WE'RE GETTING WITH THIS ACTION
+      // resultELemId is a payload for this action and we need to pass this payload.
+      // updated array is a new array due to the filter method, which returns true for all the elements where the id is not the id we pass with the action.
+    case 'STORE_DELETE':
+    const updatedArray = state.results.filter(result => result.id !== action.resultElemId);
+    return {
+      ...state,
+      results: updatedArray
+    }
   }
   return state;
 };
+
 
 
 export default reducer;

@@ -35,6 +35,7 @@ class Counter extends Component {
 // the goal is to dispatch an action whenever the button is clicked, the push the new result to the results array, so the result of the number change, update the array then take current counter as an input.
 // additionally, if one the list items is clicked, we should remove it from the array. we first add new methods to mapDispatchToProps function. so we first need to add new duspatches that dicates the action to be taken.
 
+// WHEN THE ONCLICK FUNCTINO IS EXECUTED..THEN THE onDeleteResult FUNCTION IS EXECTUED.  WE CAN PASS THE ID BECUASE SINCE IT'S MAPPED IT WILL NOT BE EXECUTED AT POINT OF TIME THE COMPONENT IS RENDERSD.  WE ARE PASSING ACTION PAYLOADS FROM THE UI OVER MAP THIS PATCH TO PROPS THEN TO THE STORE. ==>This.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
     render () {
         return (
             <div>
@@ -47,7 +48,7 @@ class Counter extends Component {
                 <button onClick={this.props.onStoreResult}>Store Result</button>
                 <ul>
                   {this.props.storedResults.map(strResult => (
-                    <li key={strResult.id} onClick={this.props.onDeleteResult}>{strResult.value}</li>
+                    <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
                   ))}
 
                 </ul>
@@ -76,6 +77,8 @@ const mapStateToProps = state => {
 
 
 // adding two new dispatch functions that will dictate what will happen when the button is clicked.
+// on onDeleteResult, we pass the 'resultELemId' payload but we need the id. to pass to it. we pass it as a paramter. then we pass it to our render method as an anonymous function so that we may be able to pass it.
+
 const mapDispatchToProps = dispatch => {
   return {
     onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
@@ -83,8 +86,7 @@ const mapDispatchToProps = dispatch => {
     onAddNumber: () => dispatch({type: 'ADD', val: 10}),
     onSubtractNumber: () => dispatch({type: 'SUBTRACT', val: 15}),
     onStoreResult: () => dispatch({type:'STORE_RESULT'}),
-    onDeleteResult: () => dispatch({type:'STORE_DELETE'}),
-
+    onDeleteResult: (id) => dispatch({type:'STORE_DELETE', resultElemId: id})
   };
 };
 
