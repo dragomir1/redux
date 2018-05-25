@@ -30,14 +30,27 @@ class Counter extends Component {
         }
     }
 
+// WE ARE USING THE NEW RESULTS PROPERTY IN OUR REDUCER STATE. ADDED A BUTTON ON THE BOTTOM TO MANIPULATE CODE.
+
+// the goal is to dispatch an action whenever the button is clicked, the push the new result to the results array, so the result of the number change, update the array then take current counter as an input.
+// additionally, if one the list items is clicked, we should remove it from the array. we first add new methods to mapDispatchToProps function. so we first need to add new duspatches that dicates the action to be taken.
+
     render () {
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
                 <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
-                <CounterControl label="Add 54" clicked={this.props.onAddNumber}  />
-                <CounterControl label="Subtract 36" clicked={this.props.onSubtractNumber}  />
+                <CounterControl label="Add 10" clicked={this.props.onAddNumber} />
+                <CounterControl label="Subtract 15" clicked={this.props.onSubtractNumber} />
+                <hr />
+                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <ul>
+                  {this.props.storedResults.map(strResult => (
+                    <li key={strResult.id} onClick={this.props.onDeleteResult}>{strResult.value}</li>
+                  ))}
+
+                </ul>
             </div>
         );
     }
@@ -49,19 +62,29 @@ class Counter extends Component {
 // state.counter is saying "give me the value in our global state managed by redux". and give it to me in the form of a proptery name ctr, which can then  be used to render
 const mapStateToProps = state => {
   return {
-    ctr: state.counter
+    ctr: state.counter,
+    storedResults: state.results
   };
 };
 
 // the second argument. which kind of actions you want to dispatch in the container.
 // we return a js object where we define some prop names which holds a reference to a function which will get executed to dispatch and action.
 // "dispatch()" will available throught the onIncrementCounter property. when the property is executed as a function. then the dispatch() is gong to get executed.
+
+
+// Passing and retrieving data. PAYLOAD object is added as additional information.  It's a javascript object.  it loads all the relevant information to this action.
+
+
+// adding two new dispatch functions that will dictate what will happen when the button is clicked.
 const mapDispatchToProps = dispatch => {
   return {
     onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
     onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-    onAddNumber: () => dispatch({type: 'ADD'}),
-    onSubtractNumber: () => dispatch({type: 'SUBTRACT'}),
+    onAddNumber: () => dispatch({type: 'ADD', val: 10}),
+    onSubtractNumber: () => dispatch({type: 'SUBTRACT', val: 15}),
+    onStoreResult: () => dispatch({type:'STORE_RESULT'}),
+    onDeleteResult: () => dispatch({type:'STORE_DELETE'}),
+
   };
 };
 
