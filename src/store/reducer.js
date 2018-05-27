@@ -1,3 +1,6 @@
+// we are importing everything from the action.js file
+import * as actionTypes from './actions';
+
 // this is the reducer file that will be exported to be used.
 // a reducer is just a funciton that retrieves a state and an action.
 // this is the initial state which is a js object that reflects the inital state for the reducer.
@@ -22,27 +25,27 @@ const initialState ={
 // results: state.results.concat(state.counter) -- this updates the array in the state IMMUTABLY. you work with arrays in states using concat.
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'INCREMENT':
+    case actionTypes.INCREMENT:
       return {
         ...state,
         counter: state.counter + 1
       }
-    case 'DECREMENT':
+    case actionTypes.DECREMENT:
       return {
         ...state,
         counter: state.counter - 1
       }
-    case 'ADD':
+    case actionTypes.ADD:
       return {
         ...state,
         counter: state.counter + action.val
       }
-    case 'SUBTRACT':
+    case actionTypes.SUBTRACT:
       return {
         ...state,
         counter: state.counter - action.val
       }
-    case 'STORE_RESULT':
+    case actionTypes.STORE_RESULT:
       return {
         ...state,
         results: state.results.concat({id: new Date(), value: state.counter})
@@ -53,7 +56,7 @@ const reducer = (state = initialState, action) => {
       // IT'S SAYING RETUEN TRUE IF THE ID OF THE CURRENT ELEMENT WE ARE LOOKING ATI NOT EQUAL TO THE ID WE'RE GETTING WITH THIS ACTION
       // resultELemId is a payload for this action and we need to pass this payload.
       // updated array is a new array due to the filter method, which returns true for all the elements where the id is not the id we pass with the action.
-    case 'STORE_DELETE':
+    case actionTypes.STORE_DELETE:
     const updatedArray = state.results.filter(result => result.id !== action.resultElemId);
     return {
       ...state,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // connect is a function. we use it on the export level..see notes below...
 import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 
 
@@ -81,12 +82,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
-    onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-    onAddNumber: () => dispatch({type: 'ADD', val: 10}),
-    onSubtractNumber: () => dispatch({type: 'SUBTRACT', val: 15}),
-    onStoreResult: () => dispatch({type:'STORE_RESULT'}),
-    onDeleteResult: (id) => dispatch({type:'STORE_DELETE', resultElemId: id})
+    onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+    onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+    onAddNumber: () => dispatch({type: actionTypes.ADD, val: 10}),
+    onSubtractNumber: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+    onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+    onDeleteResult: (id) => dispatch({type: actionTypes.STORE_DELETE, resultElemId: id})
   };
 };
 
