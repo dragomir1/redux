@@ -69,6 +69,7 @@ class Counter extends Component {
 // ONCE WE COMBINE REDUCERS, WE HAVE CREATED A GLOBAL STATE. SO IN ORDER FOR US TO ACECSS THAT GLOBAL STATE, WE NEED TO ADD THE PRPOPERTIES.
 // .ctr is the name we gave the slice of our global state.
 // .res is also the name we gave the slice in the global state.
+// gives you access to the state
 const mapStateToProps = state => {
   return {
     ctr: state.ctr.counter,
