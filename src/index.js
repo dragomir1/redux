@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 // importing the store function from the redux package we installed.  we need to mount the app as well.
 // combineReducers combines multiple reducers into one. this is a function which takes a js object, mapping our reducers to different slices of our state, as input and merges everything into one state and one reducer.
 // applyMiddleware allows us to add middleware to the store
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+// compose allows us to combine enhancers.  this is the native redux soloution.  it doesn' give us dev tools.
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 // need to install react-redux;
 // connecting redux to react;
@@ -45,8 +46,10 @@ const logger = store => {
     }
   }
 };
+// this sets up the redux devtools store in the browser.
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // we are adding a second argument, applyMiddleware and passing it the logger function.
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
 
 // use the store property to pass the store that was created with the createStore.  Passing store constant as a value to the prop. now the store is conntect to react application at least a bit..a few morethings to do
 // Provider gives us a special property called store that allows us to hook up the Provider component with our store.
