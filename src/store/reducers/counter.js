@@ -1,5 +1,5 @@
 // we are importing everything from the action.js file
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/actions';
 
 // this is the reducer file that will be exported to be used.
 // a reducer is just a funciton that retrieves a state and an action.

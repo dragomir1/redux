@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 // connect is a function. we use it on the export level..see notes below...
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions/actions'
+
+// this bottom line is not needed after we created action creators.
+// import * as actionTypes from '../../store/actions';
 
 
 
@@ -88,14 +91,21 @@ const mapStateToProps = state => {
 // adding two new dispatch functions that will dictate what will happen when the button is clicked.
 // on onDeleteResult, we pass the 'resultELemId' payload but we need the id. to pass to it. we pass it as a paramter. then we pass it to our render method as an anonymous function so that we may be able to pass it.
 // to recive the result poroperty on the inconing actions, we need to adjsut the onStoreResult method.  1.it must recieve the result as an argument, then pass it along with the type. we bind or set the value of 'result' to the argument we expect to get.
+
+
+// we pass the the increment action creator, and then we execute it. so we can get the returned value which is an action from the actions creator.  so we need to execute it.
+// this is how the code looked like before it was edited with the decrement function call.
+// onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+
+
 const mapDispatchToProps = dispatch => {
   return {
-    onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-    onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-    onAddNumber: () => dispatch({type: actionTypes.ADD, val: 10}),
-    onSubtractNumber: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
-    onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result:result}),
-    onDeleteResult: (id) => dispatch({type: actionTypes.STORE_DELETE, resultElemId: id})
+    onIncrementCounter: () => dispatch(actionCreators.increment()),
+    onDecrementCounter: () => dispatch(actionCreators.decrement()),
+    onAddNumber: () => dispatch(actionCreators.add(10)),
+    onSubtractNumber: () => dispatch(actionCreators.subtract(15)),
+    onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+    onDeleteResult: (id) => dispatch(actionCreators.storeDelete(id))
   };
 };
 
