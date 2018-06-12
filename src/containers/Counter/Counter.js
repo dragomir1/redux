@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // connect is a function. we use it on the export level..see notes below...
 import { connect } from 'react-redux';
-import * as actionCreators from '../../store/actions/actions'
+import * as actionCreators from '../../store/actions/index';
 
 // this bottom line is not needed after we created action creators.
 // import * as actionTypes from '../../store/actions';

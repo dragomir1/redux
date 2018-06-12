@@ -6,6 +6,9 @@ import ReactDOM from 'react-dom';
 // applyMiddleware allows us to add middleware to the store
 // compose allows us to combine enhancers.  this is the native redux soloution.  it doesn' give us dev tools.
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+// Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters. this allows you to do asynch code.
+// a thunk is an function that wraps an expression to delay it's evaluation.
+import thunk from 'redux-thunk';
 
 // need to install react-redux;
 // connecting redux to react;
@@ -48,8 +51,8 @@ const logger = store => {
 };
 // this sets up the redux devtools store in the browser.
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// we are adding a second argument, applyMiddleware and passing it the logger function.
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+// we are adding a second argument, applyMiddleware and passing it the logger function. we are also passing thunk, which allows for asynch code.
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 // use the store property to pass the store that was created with the createStore.  Passing store constant as a value to the prop. now the store is conntect to react application at least a bit..a few morethings to do
 // Provider gives us a special property called store that allows us to hook up the Provider component with our store.

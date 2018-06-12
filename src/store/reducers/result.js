@@ -1,5 +1,8 @@
 // we are importing everything from the action.js file
-import * as actionTypes from '../actions/actions';
+import * as actionTypes from '../actions/actionTypes';
+
+// improted the utility function from utikity.js
+import { updatedObject } from '../utility';
 
 // this is the reducer file that will be exported to be used.
 // a reducer is just a funciton that retrieves a state and an action.
@@ -10,6 +13,11 @@ import * as actionTypes from '../actions/actions';
 const initialState ={
   results: []
 }
+// this is a helper function
+const deleteResult = (state, action) => {
+  const updatedArray = state.results.filter(result => result.id !== action.resultElemId);
+  return updatedObject(state, {results: updatedArray});
+}
 
 
 //         results: state.results.concat({id: new Date(), value: state.counter}) - DOES NOT WORK
@@ -17,10 +25,11 @@ const initialState ={
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.STORE_RESULT:
-      return {
+    return updatedObject(state, {results: state.results.concat({id: new Date(), value: action.result})});
+      {/*return {
         ...state,
         results: state.results.concat({id: new Date(), value: action.result})
-      }
+      }*/}
       // we use the filter method returns a new array, it takes a function as an input, the function is executed on each element in the array, and determines if the element fulfills a certain condition to make it into a new array which is returned by filter.
 
       // IT'S SAYING RETUEN TRUE IF THE ID OF THE CURRENT ELEMENT WE ARE LOOKING ATI NOT EQUAL TO THE ID WE'RE GETTING WITH THIS ACTION
@@ -28,11 +37,11 @@ const reducer = (state = initialState, action) => {
       // updated array is a new array due to the filter method, which returns true for all the elements where the id is not the id we pass with the action.
 
     case actionTypes.STORE_DELETE:
-    const updatedArray = state.results.filter(result => result.id !== action.resultElemId);
-    return {
+    {/*{
       ...state,
       results: updatedArray
-    }
+    }*/}
+    return deleteResult(state, action);
   }
   return state;
 };

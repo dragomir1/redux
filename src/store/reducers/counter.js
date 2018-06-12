@@ -1,6 +1,7 @@
 // we are importing everything from the action.js file
-import * as actionTypes from '../actions/actions';
-
+import * as actionTypes from '../actions/actionTypes';
+// improted the utility function from utikity.js
+import { updatedObject } from '../utility';
 // this is the reducer file that will be exported to be used.
 // a reducer is just a funciton that retrieves a state and an action.
 // this is the initial state which is a js object that reflects the inital state for the reducer.
@@ -21,25 +22,29 @@ const initialState ={
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.INCREMENT:
-      return {
+      return updatedObject(state, {counter: state.counter + 1});
+      {/*return {
         ...state,
         counter: state.counter + 1
-      }
+      }*/}
     case actionTypes.DECREMENT:
-      return {
+        return updatedObject(state, {counter: state.counter - 1});
+      {/*return {
         ...state,
         counter: state.counter - 1
-      }
+      }*/}
     case actionTypes.ADD:
-      return {
+        return updatedObject(state, {counter: state.counter + action.val});
+      {/*return {
         ...state,
         counter: state.counter + action.val
-      }
+      }*/}
     case actionTypes.SUBTRACT:
-      return {
+    return updatedObject(state, {counter: state.counter - action.val});
+      {/*return {
         ...state,
         counter: state.counter - action.val
-      }
+      }*/}
   }
   return state;
 };
